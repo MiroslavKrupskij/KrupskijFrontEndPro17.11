@@ -1,98 +1,58 @@
 // 1
-for (let x = 10; x <= 20; x++) {
-    console.log(x, )
+for (let a = 20; a <= 30; a += 0.5) {
+    console.log(a);
 }
 
 // 2
-for (let i = 10; i <= 20; i++) {
-    console.log(i * i);
+const d = 27;
+for (let k = 10; k <= 100; k += 10) {
+    console.log(`${k}$ = ${k * d}₴`)
 }
 
 // 3
-for (var k = 1; k <= 10; k++) {
-   console.log(`7 * ${k} = ${7 * k},`);
-}
-
-// 4
-var sum = 0;
-for (var a = 1; a <= 15; a++) {
-    sum += a;
-}
-console.log(`Sum: ${sum}`)
-
-// 5
-
-let p = 1;
-
-for (let i = 15; i <= 35; i++) {
-    p *= i;
-}
-
-console.log("Добуток усіх цілих чисел від 15 до 35: " + p);
-
-// 6
-
-let sum2 = 0;
-let count = 0;
-
-for (let a = 1; a <= 500; a++) {
-    sum2 += a;
-    count++;
-}
-const result = sum2 / count;
-
-console.log("Середнє арифметичне від 1 до 500: " + result)
-
-// 7 
-
-let sum3 = 0;
-
-for (let a = 30; a <= 80; a++) {
-    if (a % 2 === 0) {
-        sum3 += a;
-    }
-}
-
-console.log("Сума лише парних чисел від 30 до 80: " + sum3)
-
-// 8 
- for(let a = 100; a <= 200; a++) {
-    if(a % 3 === 0) {
+const number = 3782;
+for (let a = 1; a <= 100; a++) {
+    if(a * a <= number) {
         console.log(a)
     }
- }
+}
 
-// 9, 10, 11
-
-const number = 134; 
-let count2 = 0;
-let sum_count2 = 0;
-
-console.log(`Дільники числа ${number}:`);
-for (let d = 1; d <= number; d++) {
-    if (number % d === 0) {
-        console.log(d);
-        if (d % 2 === 0) {
-            count2++;
-            sum_count2 += d;
+// 4 
+function is_prime(number2) {
+    if (number2 <= 1) {
+        return false; 
+    }
+    for (let d = 2; d <= Math.sqrt(number2); d++) {
+        if (number2 % d === 0) {
+            return false; 
         }
     }
+    return true; 
 }
-console.log(`Кількість парних дільників: ${count2}`);
-console.log(`Сума парних дільників: ${sum_count2}`);
+const input_number = prompt(`Введіть число: `)
 
+if (is_prime(input_number)) {
+    console.log(`${input_number}  є простим числом.`);
+} else {
+    console.log(`${input_number} не є простим числом.`);
+} 
 
-for (let d = 1; d <= number; d++) {
-    if (number % d === 0) {
-        
+// 5
+function is_log3(num) {
+    if (num <= 0) {
+        return false; 
     }
-}
-
-// 12
-
-for (let a = 1; a <= 10; a++) {
-    for (let b = 1; b <= 10; b++) {
-        console.log(`${a} * ${b} = ${(a * b)}`);
+    while (num !== 1) {
+        if (num % 3 !== 0) {
+            return false; 
+        }
+        num /= 3;
     }
+    return true; 
 }
-
+const num = prompt(`Введіть число:`); 
+if (is_log3(num)) {
+    console.log(`${num} можна отримати зведенням числа 3 у деякий ступінь.`);
+} else {
+    console.log(`${num} не можна отримати зведенням числа 3 у деякий ступінь.`);
+}
