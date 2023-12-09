@@ -1,16 +1,15 @@
-const array2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+function generateKey(length, characters) {
+  let result = '';
+  const charactersLength = characters.length;
 
-function removeElement(array, item) {
-
-    const index = array.indexOf(item);
-  
-    if (index >= 0) {
-      array.splice(index, 1);
-    }
-  
-    return array;
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * charactersLength);
+    result += characters[randomIndex];
   }
 
-  removeElement(array2, 12);
-  
-  console.log(array2);
+  return result;
+}
+
+const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+const key = generateKey(18, characters);
+console.log(key);
