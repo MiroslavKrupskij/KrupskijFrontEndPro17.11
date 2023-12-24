@@ -1,13 +1,17 @@
-function pow(a, b) {
+let ladder = {
+  step: 0,
+  up: function () {
+      this.step++;
+      return this; 
+  },
+  down: function () {
+      this.step--;
+      return this; 
+  },
+  showStep: function () {
+      alert(this.step);
+      return this; 
+  }
+};
 
-  if (b === 0) {
-      return 1;
-  } 
-  return a * pow(a, b - 1);
-}
-
-const c = parseFloat(prompt("Введіть число:"));
-const d = parseInt(prompt("Введіть ступінь:"));
-
-const result = pow(c, d);
-console.log(`${c} в ступені ${d} дорівнює ${result}`);
+ladder.up().up().down().showStep();
