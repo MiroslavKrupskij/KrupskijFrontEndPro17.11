@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #testimonials {
+      font-family: 'Arial', sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 2px solid #34cb1a;
+      border-radius: 8px;
+    }
+
+    .testimonial {
+      margin-bottom: 20px;
+    }
+
+    .testimonial p {
+      font-style: italic;
+      color: #555;
+    }
+
+    .testimonial-author {
+      font-weight: bold;
+      margin-bottom: 5px; 
+    }
+  </style>
+</head>
+<body>
+
+<div id="testimonials"></div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+
+    var testimonialsData = [
+      { name: 'Іван', text: 'Рекомендую!' },
+      { name: 'Марія', text: 'Дякую за швидке обслуговування.' },
+      { name: 'Петро', text: 'Спасибі! Сервісом дуже задоволений.' }
+    ];
+
+    var testimonialsContainer = document.getElementById('testimonials');
+
+    testimonialsData.forEach(function(testimonial) {
+      var testimonialElement = document.createElement('div');
+      testimonialElement.classList.add('testimonial');
+
+      var authorElement = document.createElement('div');
+      authorElement.classList.add('testimonial-author');
+      authorElement.textContent = testimonial.name;
+
+      var textElement = document.createElement('p');
+      textElement.textContent = testimonial.text;
+
+      testimonialElement.appendChild(authorElement);
+      testimonialElement.appendChild(textElement);
+
+      testimonialsContainer.appendChild(testimonialElement);
+    });
+  });
+</script>
+
+</body>
+</html>
