@@ -1,35 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Random Image</title>
-  <style>
-    #randomImage {
-      max-width: 100%;
-      height: auto;
-      margin: 20px 0;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<style>
+  .container {
+    display: flex;
+    align-items: center;
+  }
+  .emoji {
+    font-size: 36px;
+    cursor: pointer;
+    display: inline-block;
+    margin: 10px;
+  }
+</style>
 </head>
 <body>
 
-<img id="randomImage" alt="Random Image">
+<div class="container" id="container"></div>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
 
-    var folderName = 'images/';
-    var fileExtension = '.jpg';
+    var emojis = ['👍', '❤️', '😍', '🔥', '👎'];
 
-    var totalImages = 9;
+    var container = document.getElementById('container');
 
-    var randomIndex = Math.floor(Math.random() * totalImages) + 1;
+    emojis.forEach(function(emoji, index) {
+      var emojiElement = document.createElement('div');
+      emojiElement.classList.add('emoji');
+      emojiElement.textContent = emoji;
 
-    var imagePath = folderName + randomIndex + fileExtension;
+      var counterElement = document.createElement('div');
+      counterElement.textContent = '0';
 
-    var randomImage = document.getElementById('randomImage');
-    randomImage.src = imagePath;
+      // При натисканні на смайл - збільшуємо лічильник
+      emojiElement.addEventListener('click', function() {
+        var currentCount = parseInt(counterElement.textContent);
+        counterElement.textContent = currentCount + 1;
+      });
+
+      container.appendChild(emojiElement);
+      container.appendChild(counterElement);
+    });
   });
 </script>
 
