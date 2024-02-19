@@ -3,50 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
-<style>
-  .container {
-    display: flex;
-    align-items: center;
-  }
-  .emoji {
-    font-size: 36px;
-    cursor: pointer;
-    display: inline-block;
-    margin: 10px;
-  }
-</style>
+<title>Online Shop</title>
+<link href="./style.css" rel="stylesheet">
 </head>
 <body>
-
-<div class="container" id="container"></div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-
-    var emojis = ['👍', '❤️', '😍', '🔥', '👎'];
-
-    var container = document.getElementById('container');
-
-    emojis.forEach(function(emoji, index) {
-      var emojiElement = document.createElement('div');
-      emojiElement.classList.add('emoji');
-      emojiElement.textContent = emoji;
-
-      var counterElement = document.createElement('div');
-      counterElement.textContent = '0';
-
-      // При натисканні на смайл - збільшуємо лічильник
-      emojiElement.addEventListener('click', function() {
-        var currentCount = parseInt(counterElement.textContent);
-        counterElement.textContent = currentCount + 1;
-      });
-
-      container.appendChild(emojiElement);
-      container.appendChild(counterElement);
-    });
-  });
-</script>
-
+  <script src="./app.js"> </script>
+<div class="container">
+  <div class="categories" id="categories">
+    <h2>Категорії</h2>
+    <ul>
+      <li data-category="clothing">Одяг</li>
+      <li data-category="electronics">Електроніка</li>
+      <li data-category="books">Книги</li>
+    </ul>
+  </div>
+  <div class="products" id="products">
+    <h2>Товари</h2>
+    <ul id="productList"></ul>
+  </div>
+  <div class="product-info" id="productInfo">
+    <h2>Інформація про товар</h2>
+    <p>Виберіть категорію та товар</p>
+  </div>
+</div>
 </body>
 </html>
