@@ -1,75 +1,62 @@
-function displayError(message) {
-  const errorMessage = document.getElementById('errorMessage');
-  errorMessage.textContent = message;
-  errorMessage.style.display = 'block';
-  setTimeout(() => {
-    errorMessage.style.display = 'none';
-  }, 3000);
+const badWords = ['пiдманула', 'пiдвела'];
+const daysOfWeek = ['понедiлок', 'вiвторок', 'середу', 'четвер', 'п’ятницю', 'суботу', 'недiлю'];
+
+function isBadWordOrDay(word) {
+    return badWords.includes(word) || daysOfWeek.includes(word.toLowerCase());
 }
 
-function searchPost() {
-  const postId = parseInt(document.getElementById('postIdInput').value);
-
-  if (isNaN(postId) || postId < 1 || postId > 100) {
-    displayError('Введіть коректний ID поста.');
-    return;
-  }
-
-  fetchPost(postId)
-    .then(post => {
-      document.getElementById('post').innerHTML = `
-        <p><strong>User ID:</strong> ${post.userId}</p>
-        <p><strong>ID:</strong> ${post.id}</p>
-        <p><strong>Назва:</strong> ${post.title}</p>
-        <p><strong>Зміст:</strong> ${post.body}</p>
-      `;
-      document.getElementById('postContainer').style.display = 'block';
-    })
-    .catch(error => {
-      displayError(error.message);
-    });
+function replaceBadWordOrDay(word) {
+    return '*'.repeat(word.length);
 }
 
-function fetchPost(postId) {
-  return new Promise((resolve, reject) => {
-    fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Пост не знайдено.');
+function processLine(line) {
+
+    const words = line.split(/[\s,.-]+/);
+
+    const replacedWords = words.map(word => {
+        if (isBadWordOrDay(word)) {
+            return replaceBadWordOrDay(word);
+        } else {
+            return word;
         }
-        return response.json();
-      })
-      .then(post => {
-        resolve(post);
-      })
-      .catch(error => {
-        reject(error);
-      });
-  });
-}
-
-function fetchComments() {
-  const postId = parseInt(document.getElementById('postIdInput').value);
-
-  fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`)
-    .then(response => response.json())
-    .then(comments => {
-      const commentsContainer = document.getElementById('comments');
-      commentsContainer.innerHTML = '';
-      comments.forEach(comment => {
-        const commentElement = document.createElement('div');
-        commentElement.innerHTML = `
-          <p><strong>Post ID:</strong> ${comment.postId}</p>
-          <p><strong>ID:</strong> ${comment.id}</p>
-          <p><strong>Ім'я:</strong> ${comment.name}</p>
-          <p><strong>Email:</strong> ${comment.email}</p>
-          <p><strong>Текст:</strong> ${comment.body}</p>
-          <hr>
-        `;
-        commentsContainer.appendChild(commentElement);
-      });
-    })
-    .catch(error => {
-      displayError('Не вдалося завантажити коментарі.');
     });
+
+    const processedLine = replacedWords.join(' ');
+
+    return processedLine;
 }
+
+const originalText = `Ти казала в понедiлок – пiдем разом по барвiнок.
+Я прийшов, тебе нема, пiдманула, пiдвела.
+Ти ж мене пiдманула, ти ж мене пiдвела.
+Ти ж мене, молодого, з ума розуму звела.
+Я казала у вiвторок – поцiлую разiв сорок.
+Ти прийшов, мене нема, пiдманула, пiдвела.
+Я ж тебе пiдманула, я ж тебе пiдвела.
+Я ж тебе, молодого, з ума розуму звела.
+Ти казала у середу – пiдем разом по череду.
+Я прийшов, тебе нема, пiдманула, пiдвела.
+Ти ж мене пiдманула, ти ж мене пiдвела.
+Ти ж мене, молодого, з ума розуму звела.
+Я казала у четвер – пiдем разом на концерт.
+Ти прийшов, мене нема, пiдманула, пiдвела.
+Ти ж мене пiдманула, ти ж мене пiдвела.
+Ти ж мене, молодого, з ума розуму звела.
+Ти казала у п’ятницю – пiдем разом по пшеницю.
+Я прийшов, тебе нема, пiдманула, пiдвела.
+Я ж тебе пiдманула, ти ж мене пiдвела.
+Ти ж його, молодого, з ума розуму звела.
+Я казала у суботу – пiдем разом на роботу.
+Я прийшов, тебе нема, пiдманула, пiдвела.
+Я ж тебе пiдманула, ти ж мене пiдвела.
+Ти ж його, молодого, з ума розуму звела.
+Я казала у недiлю – пiдем разом на весiлля.
+Я прийшов, тебе нема, пiдманула, пiдвела.
+Ти ж мене пiдманула, ти ж мене пiдвела.
+Ти ж мене, молодого, з ума розуму звела.`;
+
+const lines = originalText.trim().split('\n');
+
+const processedText = lines.map(processLine).join('\n');
+
+console.log(processedText);
